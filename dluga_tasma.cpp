@@ -5,9 +5,9 @@ using namespace std;
 int main() {
     int n;
     int min_val;
+    cin >> n;
     int A[n];
     int i;
-    cin >> n;
 
     for (i=0; i < n; i++)
         cin >> A[i];
