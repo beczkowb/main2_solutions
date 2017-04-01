@@ -4,6 +4,6 @@ project(main2_solutions)
 set(CMAKE_CXX_STANDARD 11)
 
 set(SOURCE_FILES
-        dluga_tasma.cpp)
+        samochody.cpp chomiki.cpp)
 
 add_executable(main2_solutions ${SOURCE_FILES})
