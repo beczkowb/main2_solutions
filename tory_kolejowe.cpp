@@ -63,19 +63,37 @@ void sort_points(int A[][2], int start, int end) {
 }
 
 int main() {
-    int n = 6;
-    int points[n][2] = {
-            {10, 8},
-            {6, 4},
-            {12, 3},
-            {12, 9},
-            {1, 2},
-            {98, 32},
-    };
+    int n;
+    int x, y;
+    cin >> n;
+    int points[n][2];
+
+    for (int i=0; i < n; i++) {
+        cin >> x;
+        cin >> y;
+        points[i][0] = x;
+        points[i][1] = y;
+    }
 
     sort_points(points, 0, n-1);
 
-    for (int i=0; i < n; i++) {
-        cout << points[i][0] << " " << points[i][1] << endl;
+    int distance = points[1][0] - points[0][0] + points[1][1] + points[0][1];
+    int current_min = distance;
+    int best_candidate;
+
+    if (distance - points[1][1] < points[1][1])
+        best_candidate = 0;
+    else
+        best_candidate = 1;
+
+    for (int i=2; i < n; i++) {
+        distance = points[i][0] - points[best_candidate][0] + points[i][1] + points[best_candidate][1];
+        if (current_min > distance)
+            current_min = distance;
+
+        if (distance - points[i][1] > points[i][1])
+            best_candidate = i;
     }
+
+    cout << current_min << endl;
 }
