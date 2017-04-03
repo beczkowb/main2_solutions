@@ -4,6 +4,6 @@ project(main2_solutions)
 set(CMAKE_CXX_STANDARD 11)
 
 set(SOURCE_FILES
-        tory_kolejowe.cpp)
+        nawiasy.cpp)
 
 add_executable(main2_solutions ${SOURCE_FILES})
