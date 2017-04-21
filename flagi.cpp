@@ -11,51 +11,53 @@ int main() {
     for (int i = 0; i < n; i++)
         cin >> A[i];
 
-    int peaks_counter[n+1];
-    peaks_counter[0] = 0;
-    peaks_counter[1] = 0;
-    int number_of_flags = 0;
+    int number_of_peaks = 0;
+    for (int i = 1; i < n-1; i++)
+        if (A[i-1] < A[i] && A[i+1] < A[i])
+            number_of_peaks++;
 
-    for (int i = 1; i < n-1; i++) {
-        peaks_counter[i+1] = peaks_counter[i];
-        if (A[i] > A[i-1] && A[i] > A[i+1]) {
-            peaks_counter[i+1]++;
-            number_of_flags++;
+    int distances[number_of_peaks-1];
+    int counter = 0;
+    int counting_started = false;
+    int d = 0;
+
+    for (int i = 1; i < n && d < number_of_peaks-1; i++) {
+        if (counting_started)
+            counter++;
+
+        if (A[i-1] < A[i] && A[i+1] < A[i]) {
+            if (!counting_started)
+                counting_started = true;
+            else {
+                distances[d++] = counter;
+                counter = 0;
+            }
         }
     }
-    peaks_counter[n] = peaks_counter[n-1];
 
-    int flag_i = 0;
-    int flags[number_of_flags];
-    for (int i = 0; i < n; i++)
-        if (A[i] > A[i-1] && A[i] > A[i+1])
-            flags[flag_i++] = i;
+    if (number_of_peaks == 0) {
+        cout << 0 << endl;
+        return 0;
+    }
 
-    int max_number_of_flags = 0;
-    int counter, flag, j;
-    for (int k = 2; k <= sqrt(n); k++) {
+    int result = 0;
+    int current_distance;
+
+    for (int i = 2; i*i <= n; i++) {
         counter = 0;
-        j = 0;
-        while (j < number_of_flags) {
-            counter++;
-            flag = flags[j];
-
-            if (peaks_counter[flag+k-1] < peaks_counter[n]) {
-                j++;
-                while (flag + k > flags[j]) {
-                    j++;
-                }
-            } else {
+        current_distance = 0;
+        for (int j = 0; j < number_of_peaks-1; j++) {
+            current_distance += distances[j];
+            if (current_distance >= i) {
+                counter++;
+                current_distance = 0;
+            }
+            if (counter == i - 1) {
+                result = i;
                 break;
             }
-
-        }
-
-        if (counter >= k) {
-            max_number_of_flags = k;
         }
     }
 
-    cout << max_number_of_flags << endl;
-
+    cout << result << endl;
 }
