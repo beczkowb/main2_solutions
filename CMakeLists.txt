@@ -4,6 +4,6 @@ project(main2_solutions)
 set(CMAKE_CXX_STANDARD 11)
 
 set(SOURCE_FILES
-        mandarynki.cpp)
+        wesola_malpka.cpp)
 
 add_executable(main2_solutions ${SOURCE_FILES})
