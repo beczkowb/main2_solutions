@@ -80,27 +80,22 @@ int main() {
     cin >> n;
     cin >> s;
 
-    int x[n];
-    for (int i = 0; i < n; i++)
-        cin >> x[i];
-
-    if (s < 0) {
-        for (int i = 0; i < n; i++)
-            x[i] = -x[i];
-        s = -s;
-    }
-
-    long long sums[n+1];
-    sums[0] = 0;
-
-    for (int i = 1; i < n+1; i++)
-        sums[i] = sums[i-1] + x[i-1];
-
     long long isums[n+1][2];
-    for (int i = 0; i < n+1; i++) {
-        isums[i][0] = sums[i];
+    long long tmp;
+    isums[0][0] = 0;
+    isums[0][1] = 0;
+
+    for (int i = 1; i < n+1; i++) {
+        cin >> tmp;
+        if (s < 0)
+            tmp = -tmp;
+
+        isums[i][0] = isums[i-1][0] + tmp;
         isums[i][1] = i;
     }
+
+    if (s < 0)
+        s = -s;
 
     sort_points(isums, 0, n+1);
 
